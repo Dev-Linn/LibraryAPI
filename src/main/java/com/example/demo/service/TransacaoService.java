@@ -1,3 +1,4 @@
+
 package com.example.demo.service;
 
 import com.example.demo.model.Autor;
@@ -22,10 +23,11 @@ public class TransacaoService {
     private LivroRepository livroRepository;
 
     @Transactional
-    public void atualizacaoSemSalvar(){
-        var livro = livroRepository.findById(UUID.fromString("27e080bb-e37e-4cf1-8c43-1571ac2e71ea")).orElse(null);
-        livro.setDataPublicacao(LocalDate.now());
-
+    public void atualizarLivro(UUID id, Autor novoAutor) {
+        var livroParaAtualizar = livroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+        livroParaAtualizar.setAutor(novoAutor);
+        livroRepository.save(livroParaAtualizar);
     }
 
     @Transactional
@@ -53,3 +55,6 @@ public class TransacaoService {
     }
 
 }
+
+
+
