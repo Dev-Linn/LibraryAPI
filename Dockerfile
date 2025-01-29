@@ -1,5 +1,5 @@
-# Use uma imagem base do OpenJDK com Maven
-FROM maven:3.8.6-openjdk-17 AS build
+# Use uma imagem base do Maven com JDK 21
+FROM maven:3.9.5-eclipse-temurin-21 AS build
 
 # Defina o diretório de trabalho no container
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY src ./src
 RUN mvn clean package
 
 # Use uma imagem base menor para a execução
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:21-jre-jammy
 
 # Defina o diretório de trabalho no container
 WORKDIR /app
